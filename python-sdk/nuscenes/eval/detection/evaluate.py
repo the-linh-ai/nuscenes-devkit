@@ -91,10 +91,12 @@ class DetectionEval:
         # Filter boxes (distance, points per box, etc.).
         if verbose:
             print('Filtering predictions')
-        self.pred_boxes = filter_eval_boxes(nusc, self.pred_boxes, self.cfg.class_range, verbose=verbose)
+        self.pred_boxes = filter_eval_boxes(
+            nusc, self.pred_boxes, self.cfg.class_range, verbose=verbose, class_field='detection_name')
         if verbose:
             print('Filtering ground truth annotations')
-        self.gt_boxes = filter_eval_boxes(nusc, self.gt_boxes, self.cfg.class_range, verbose=verbose)
+        self.gt_boxes = filter_eval_boxes(
+            nusc, self.gt_boxes, self.cfg.class_range, verbose=verbose, class_field='detection_name')
 
         self.sample_tokens = self.gt_boxes.sample_tokens
 

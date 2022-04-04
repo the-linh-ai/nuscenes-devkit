@@ -207,7 +207,8 @@ def add_center_dist(nusc: NuScenes,
 def filter_eval_boxes(nusc: NuScenes,
                       eval_boxes: EvalBoxes,
                       max_dist: Dict[str, float],
-                      verbose: bool = False) -> EvalBoxes:
+                      verbose: bool = False,
+                      class_field: str = None) -> EvalBoxes:
     """
     Applies filtering to boxes. Distance, bike-racks and points per box.
     :param nusc: An instance of the NuScenes class.
@@ -216,7 +217,8 @@ def filter_eval_boxes(nusc: NuScenes,
     :param verbose: Whether to print to stdout.
     """
     # Retrieve box type for detectipn/tracking boxes.
-    class_field = _get_box_class_field(eval_boxes)
+    if class_field is None:
+        class_field = _get_box_class_field(eval_boxes)
 
     # Accumulators for number of filtered boxes.
     total, dist_filter, point_filter, bike_rack_filter = 0, 0, 0, 0
